@@ -1,16 +1,9 @@
 package Member.main;
 
-import java.io.DataOutputStream;
-import java.io.ObjectOutputStream;
-import java.io.OutputStream;
-import java.lang.ModuleLayer.Controller;
-import java.net.Socket;
 import java.net.URL;
 import java.nio.file.Paths;
-import java.util.Scanner;
 
 import Member.controller.MemberController;
-import Member.dto.MemberDTO;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -27,12 +20,12 @@ public class MainClass extends Application {
 
 		FXMLLoader loader = new FXMLLoader(url);
 		Parent root = loader.load();
-		//System.out.println("test");
+		System.out.println("test");
 		MemberController ctrl = loader.getController();
 		ctrl.setRoot(root);
 
 
-		MemberDTO dto = new MemberDTO();
+		//MemberDTO dto = new MemberDTO();
 
 
 		Scene scene = new Scene(root);
@@ -40,25 +33,12 @@ public class MainClass extends Application {
 		arg0.show();
 
 
-		
+
 	}
 	public static void main(String[] args) {
 		launch(args);
-		
-		try {
-			Socket sock = new Socket("192.168.42.97",12345);
-			Scanner input = new Scanner(System.in);
 
-			OutputStream out = sock.getOutputStream();
-			DataOutputStream os = new DataOutputStream(out);
-			
-			os.writeUTF("test");
-			
-			os.close();
-			
-		}catch (Exception e) {
-			e.printStackTrace();
-		}
+
 	}
 
 

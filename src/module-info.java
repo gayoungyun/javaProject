@@ -6,6 +6,7 @@ module javaProject {
 	exports Member.controller;
 	exports Member.main;
 
+	requires java.sql;
 	requires javafx.base;
 	requires javafx.controls;
 	requires javafx.fxml;

@@ -1,58 +1,59 @@
 package Member.dto;
 
 public class MemberDTO {
-	//아이디 비밀번호 이름 번호 생일 성별
-	private String id, pwd, name, bir, num;
+	private String id, pwd, name, birth, tel, add;
 	private int gender;
-
+	private int num;
+	
+	
 	public String getId() {
 		return id;
 	}
-
 	public void setId(String id) {
 		this.id = id;
 	}
-
 	public String getPwd() {
 		return pwd;
 	}
-
 	public void setPwd(String pwd) {
 		this.pwd = pwd;
 	}
-
 	public String getName() {
 		return name;
 	}
-
 	public void setName(String name) {
 		this.name = name;
 	}
-
+	public String getBirth() {
+		return birth;
+	}
+	public void setBirth(String birth) {
+		this.birth = birth;
+	}
+	public String getTel() {
+		return tel;
+	}
+	public void setTel(String tel) {
+		this.tel = tel;
+	}
+	public String getAdd() {
+		return add;
+	}
+	public void setAdd(String add) {
+		this.add = add;
+	}
 	public int getGender() {
 		return gender;
 	}
-
 	public void setGender(int gender) {
 		this.gender = gender;
 	}
-
-	public String getBir() {
-		return bir;
+	public int getNum() {
+		return gender;
 	}
-
-	public void setBir(String bir) {
-		this.bir = bir;
-	}
-
-	public String getNum() {
-		return num;
-	}
-
-	public void setNum(String num) {
+	public void setNum(int num) {
 		this.num = num;
 	}
-
 	
 	
 }

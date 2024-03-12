@@ -8,28 +8,51 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane prefHeight="476.0" prefWidth="338.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/21" fx:controller="Member.controller.MemberController">
+<AnchorPane prefHeight="566.0" prefWidth="338.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Member.controller.MemberController">
    <children>
-      <Label layoutX="121.0" layoutY="27.0" text="회원가입">
+      <Label layoutX="117.0" layoutY="30.0" text="회원가입" textAlignment="CENTER">
          <font>
-            <Font size="24.0" />
+            <Font name="Arial" size="26.0" />
          </font>
       </Label>
-      <Label layoutX="46.0" layoutY="83.0" text="아이디" />
-      <Label layoutX="44.0" layoutY="129.0" text="비밀번호" />
-      <Label layoutX="44.0" layoutY="177.0" text="이름" />
-      <Label layoutX="44.0" layoutY="324.0" text="성별" />
-      <Label layoutX="44.0" layoutY="273.0" text="핸드폰 번호" />
-      <Label layoutX="44.0" layoutY="224.0" text="생일" />
-      <TextField fx:id="fxId" layoutX="132.0" layoutY="79.0" />
-      <TextField fx:id="fxName" layoutX="132.0" layoutY="173.0" />
-      <TextField fx:id="fxBirth" layoutX="132.0" layoutY="220.0" />
-      <TextField fx:id="fxNumber" layoutX="132.0" layoutY="269.0" />
-      <RadioButton fx:id="rdoMan" layoutX="132.0" layoutY="323.0" mnemonicParsing="false" text="남자" />
-      <RadioButton fx:id="rdoWoman" layoutX="232.0" layoutY="323.0" mnemonicParsing="false" text="여자" />
-      <Button layoutX="60.0" layoutY="385.0" mnemonicParsing="false" onAction="#registerFunc" prefHeight="22.0" prefWidth="86.0" text="회원가입" />
-      <Button layoutX="199.0" layoutY="385.0" mnemonicParsing="false" onAction="#cancelFunc" prefHeight="22.0" prefWidth="86.0" text="취소" />
-      <PasswordField fx:id="fxPwd" layoutX="132.0" layoutY="125.0" />
+      <Label layoutX="45.0" layoutY="101.0" text="Id">
+         <font>
+            <Font name="Arial" size="14.0" />
+         </font></Label>
+      <Label layoutX="44.0" layoutY="153.0" text="Password">
+         <font>
+            <Font name="Arial" size="14.0" />
+         </font></Label>
+      <Label layoutX="44.0" layoutY="201.0" text="Name">
+         <font>
+            <Font name="Arial" size="14.0" />
+         </font></Label>
+      <Label layoutX="44.0" layoutY="356.0" text="Gender">
+         <font>
+            <Font name="Arial" size="14.0" />
+         </font></Label>
+      <Label layoutX="44.0" layoutY="306.0" text="phon number">
+         <font>
+            <Font name="Arial" size="14.0" />
+         </font></Label>
+      <Label layoutX="44.0" layoutY="255.0" text="Birth">
+         <font>
+            <Font name="Arial" size="14.0" />
+         </font></Label>
+      <TextField fx:id="fxId" layoutX="132.0" layoutY="97.0" />
+      <TextField fx:id="fxName" layoutX="132.0" layoutY="197.0" />
+      <TextField fx:id="fxBirth" layoutX="132.0" layoutY="251.0" />
+      <TextField fx:id="fxNumber" layoutX="132.0" layoutY="302.0" />
+      <RadioButton fx:id="rdoMan" layoutX="140.0" layoutY="355.0" mnemonicParsing="false" text="남자" />
+      <RadioButton fx:id="rdoWoman" layoutX="234.0" layoutY="355.0" mnemonicParsing="false" text="여자" />
+      <Button layoutX="65.0" layoutY="486.0" mnemonicParsing="false" onAction="#registerFunc" prefHeight="22.0" prefWidth="86.0" text="회원가입" />
+      <Button layoutX="191.0" layoutY="486.0" mnemonicParsing="false" onAction="#cancelFunc" prefHeight="22.0" prefWidth="86.0" text="취소" />
+      <PasswordField fx:id="fxPwd" layoutX="132.0" layoutY="149.0" />
+      <Label layoutX="44.0" layoutY="410.0" text="Address">
+         <font>
+            <Font name="Arial" size="14.0" />
+         </font>
+      </Label>
+      <TextField fx:id="fxAddr" layoutX="132.0" layoutY="406.0" />
    </children>
 </AnchorPane>
