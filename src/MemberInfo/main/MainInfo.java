@@ -1,4 +1,4 @@
-package Member.main;
+package MemberInfo.main;
 
 import java.net.URL;
 import java.nio.file.Paths;
@@ -11,12 +11,12 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import register.url.URLService;
 
-public class MainClass extends Application {
+public class MainInfo extends Application{
 	@Override
 	public void start(Stage arg0) throws Exception {
 		System.out.println(getClass().getResource(""));//현재위치정보
-		System.out.println("file:/"+(Paths.get("").toAbsolutePath().toString())+"/bin/register.fxml");
-		URL url= new URL(URLService.fxPath+"register.fxml");
+		System.out.println("file:/"+(Paths.get("").toAbsolutePath().toString())+"/bin/check.fxml");
+		URL url= new URL(URLService.fxPath+"check.fxml");
 
 		FXMLLoader loader = new FXMLLoader(url);
 		Parent root = loader.load();

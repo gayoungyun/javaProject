@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="202.0" prefWidth="599.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Member.controller.MemberController">
+   <children>
+      <AnchorPane layoutY="66.0" prefHeight="339.0" prefWidth="599.0">
+         <children>
+            <TableView fx:id="fxView" layoutY="59.0" prefHeight="265.0" prefWidth="599.0">
+              <columns>
+                <TableColumn fx:id="fxViewid" prefWidth="86.0" text="회원ID" />
+                <TableColumn fx:id="fxViewname" prefWidth="76.0" text="회원Name" />
+                  <TableColumn fx:id="fxViewbirth" prefWidth="115.0" text="회원Birth" />
+                  <TableColumn fx:id="fxViewtel" prefWidth="134.0" text="회원Tel" />
+                  <TableColumn fx:id="fxViewaddress" prefWidth="187.0" text="회원Address" />
+              </columns>
+            </TableView>
+            <Button layoutX="484.0" layoutY="3.0" mnemonicParsing="false" onAction="#deleteFunc" text="회원 탈퇴" />
+         </children>
+      </AnchorPane>
+      <Button layoutX="484.0" layoutY="38.0" mnemonicParsing="false" onAction="#modifyFunc" text="회원 수정" />
+      <Label layoutX="62.0" layoutY="36.0" text="회원 정보 확인">
+         <font>
+            <Font name="Arial" size="22.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

@@ -5,6 +5,21 @@ public class MemberDTO {
 	private int gender;
 	private int num;
 	
+	public MemberDTO()
+	{
+		
+	}
+	
+	public MemberDTO(String id, String name, String birth, String tel, String add)
+	{
+		this.id = id;
+		this.name = name;
+		this.birth = birth;
+		this.tel = tel;
+		this.add = add;
+
+	}
+	
 	
 	public String getId() {
 		return id;

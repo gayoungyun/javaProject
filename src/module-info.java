@@ -1,4 +1,5 @@
 module javaProject {
+	exports MemberInfo.main;
 	exports register.url;
 	exports Member.dao;
 	exports Member.service;
@@ -11,4 +12,7 @@ module javaProject {
 	requires javafx.controls;
 	requires javafx.fxml;
 	requires javafx.graphics;
+	requires class_04;
+	
+	opens Member.controller;
 }
