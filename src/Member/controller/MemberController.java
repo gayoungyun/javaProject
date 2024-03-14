@@ -30,7 +30,7 @@ public class MemberController implements Initializable{
 	@FXML public TableColumn<MemberDTO,String> fxViewid, fxViewname, fxViewbirth,fxViewtel, fxViewaddress;
 
 	ObservableList<MemberDTO> myList = FXCollections.observableArrayList();
-
+	MemberDTO userInfo;
 	Parent root;
 	MemberService ms;
 	public void setRoot(Parent root) {
@@ -79,68 +79,72 @@ public class MemberController implements Initializable{
 	public void checkFunc() {
 		fxPwdcheck = (PasswordField)root.lookup("#fxPwdcheck");
 		String password = fxPwdcheck.getText();
-		//.isEmpty()
 
 		boolean result = false;
+		
 		if (ms.passwordchk(password)) {
-			//			MemberDTO member = ms.getMemberInfoByPassword(password);
-			//			if(member != null) {
-			//				//id name birth tel address
-			//				fxViewid.setText(member.getId());
-			//				fxViewname.setText(member.getName());
-			//				fxViewbirth.setText(member.getBirth());
-			//				fxViewtel.setText(member.getTel());
-			//				fxViewaddress.setText(member.getAdd());
-			//				
-			//			}
 			result = true;
 		}
-
 		ms.checkFunc(root, result, password);
 	}
-	public void modifyFunc() {
-		
-		fxIdm = (TextField)root.lookup("#fxIdm");
-		fxPwdm = (PasswordField)root.lookup("#fxPwdm");
-		fxNamem = (TextField)root.lookup("#fxNamem");
-		fxNumberm = (TextField)root.lookup("#fxNumberm");
-		fxAddr = (TextField)root.lookup("#fxAddrm");
-		
-		/*
-		Alert alert = new Alert(AlertType.INFORMATION);
-		alert.setHeaderText("중복");
-		alert.setContentText("이미 가입하셨습니다");
-		alert.show();
-	*/
-		ms.modifyFunc(root);
+
+	public void deleteFunc() {
+		MemberDAO dao = new MemberDAO();
+
+		boolean deletionSuccess = dao.delete(userInfo.getPwd()); 
+		if(!deletionSuccess) {
+
+			Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setHeaderText("실패");
+			alert.setContentText("다시 시도해주세요");
+			alert.show();
+
+		}else {
+			Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setHeaderText("");
+			alert.setContentText("탈퇴 성공했습니다");
+			alert.show();
+
+		}
 	}
 
 	public void modifymFunc() {
 
+		fxIdm = (TextField)root.lookup("#fxIdm");
+		fxPwdm = (PasswordField)root.lookup("#fxPwdm");
+		fxNamem = (TextField)root.lookup("#fxNamem");
+		fxNumberm = (TextField)root.lookup("#fxNumberm");
+		fxAddrm = (TextField)root.lookup("#fxAddrm");
+
+		MemberDAO dao = new MemberDAO();
+		MemberDTO dto = new MemberDTO();
+		
+		dto.setId(fxIdm.getText());
+		dto.setPwd(fxPwdm.getText());
+		dto.setName(fxNamem.getText());
+		dto.setTel(fxNumberm.getText());
+		dto.setAdd(fxAddrm.getText());
+		
+		int modifySuccess = dao.modify(dto, userInfo.getPwd()); 
+		
+		if(modifySuccess>0) {
+			Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setHeaderText("중복");
+			alert.setContentText("이미 가입하셨습니다");
+			alert.show();
+		}else {
+			Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setHeaderText("성공");
+			alert.setContentText("수정 성공했습니다");
+			alert.show();
+		}
 	}
+	
 	public void canclemFunc() {
 
 	}
-	public void checkdFunc() {
-		
-	}
-	/*
-	public void getPasswordMameber(String password)
-	{
-		if (ms.passwordchk(password)) {
-			MemberDTO member = ms.getMemberInfoByPassword(password);
-			if(member != null) {
-				//id name birth tel address
-//				fxViewid.setText(member.getId());
-//				fxViewname.setText(member.getName());
-//				fxViewbirth.setText(member.getBirth());
-//				fxViewtel.setText(member.getTel());
-//				fxViewaddress.setText(member.getAdd());
 
-			}
-		}
-	}
-	 */
+
 	public void find(String password)
 	{
 		MemberDTO dto = new MemberDTO();
@@ -151,14 +155,15 @@ public class MemberController implements Initializable{
 
 		System.out.println(dto.getBirth());
 
-		setTable(dto);
+		setTable(dto, password);
 	}
 
-	public void setTable(MemberDTO dto)
+	public void setTable(MemberDTO dto, String password)
 	{
-
+		userInfo = dto;
+		userInfo.setPwd(password);
+		
 		myList.add(new MemberDTO(dto.getId(), dto.getName(), dto.getBirth(), dto.getTel(), dto.getAdd()));
-		// fxViewid, fxViewname, fxViewbirth,fxViewtel, fxViewaddress;
 
 		fxViewid.setCellValueFactory(new PropertyValueFactory<>("id"));
 		fxViewname.setCellValueFactory(new PropertyValueFactory<>("name"));
@@ -168,11 +173,12 @@ public class MemberController implements Initializable{
 
 		fxView.setItems(myList);
 	}
+	public void modifyFunc() {
 
-	public void deleteFunc() {
-		ms.deleteFunc();
-
+		ms.modifyFunc(root, userInfo.getPwd());
 	}
+
+
 	public void cancelFunc() {
 		System.out.println("root : "+root);
 		ms.cancelFunc();
@@ -185,7 +191,17 @@ public class MemberController implements Initializable{
 		System.out.println("root : "+root);
 		ms.cancelFunc();
 	}
+	public void checkdFunc() {
 
+	}
+	
+	public void setPwd(String pwd)
+	{
+		MemberDTO d = new MemberDTO();
+		userInfo = d;
+		userInfo.setPwd(pwd);
+	}
+	
 }
 
 

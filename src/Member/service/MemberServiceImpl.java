@@ -5,7 +5,6 @@ import java.util.Scanner;
 
 import Class.Class01;
 import Class.Class02;
-import Class.Class03;
 import Member.dao.MemberDAO;
 import Member.dto.MemberDTO;
 import javafx.scene.Parent;
@@ -32,6 +31,7 @@ public class MemberServiceImpl implements MemberService{
 	public void setRoot(Parent root) {
 		this.root = root;
 	}
+	
 	@Override
 	public void registerFunc(String id, String name, String birth, String number, String pwd, boolean gender) {
 
@@ -66,38 +66,15 @@ public class MemberServiceImpl implements MemberService{
 		dao.insert(dto);
 	}
 	@Override
-	public void modifyFunc(Parent root) {
-		//ArrayList<MemberDTO> member = dao.getMembers();
+	public void modifyFunc(Parent root , String password ) {
+		
 		System.out.println("modifyfund실행");
 		Class02 cs02= new Class02();
 		System.out.println("class호출");
-		fxIdm = (TextField)root.lookup("#fxIdm");
-		fxPwd = (PasswordField)root.lookup("#fxPwdm");
-		fxNamem = (TextField)root.lookup("#fxNamem");
-		fxNumberm = (TextField)root.lookup("#fxNumberm");
-		fxAddrm = (TextField)root.lookup("#fxAddrm");
-		System.out.println("class후");
-
-		System.out.println("id : "+fxIdm.getText());
-		System.out.println("pwd : "+fxPwdm.getText());
-		System.out.println("name : "+fxNamem.getText());
-		System.out.println("number : "+fxNumberm.getText());
-		System.out.println("addr : "+fxAddrm.getText());
-
-		System.out.println("class후후");
-
-		MemberDTO dto = new MemberDTO();
-		dto.setId(fxIdm.getText());
-		dto.setPwd(fxPwdm.getText());
-		dto.setName(fxNamem.getText());
-		dto.setTel(fxNumberm.getText());
-		dto.setAdd(fxAddrm.getText());
-
-		dao.insert(dto);
-		System.out.println("class gngngn");
-
-		cs02.modifyFx(root);
+		
+		cs02.modifyFx(root, password);
 	}
+	
 	public void checkFunc(Parent root, boolean result, String password) {
 		ArrayList<MemberDTO> member = dao.getMembers();
 		Class01 cs01= new Class01();
@@ -114,12 +91,7 @@ public class MemberServiceImpl implements MemberService{
 		else
 			System.out.println("비밀번호가 다릅니다");
 	}
-	@Override
-	public void cancelFunc() {
-		Stage stage =(Stage)root.getScene().getWindow();
-		stage.close();
-	}
-
+	
 	@Override
 	public boolean isMemberRegistered(String phoneNumber) 
 	{
@@ -129,13 +101,11 @@ public class MemberServiceImpl implements MemberService{
 
 	}
 
-
 	public boolean isMemberCheck(String pwd)
 	{
 		boolean result = dao.passwordchk(pwd);
 		return result;
 	}
-
 
 	public boolean passwordchk(String pwd) 
 	{
@@ -144,62 +114,16 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 	@Override
-	public void deleteFunc(Parent root, boolean result, String password) {
-		System.out.println("delfunc실행");
-		Class03 cs03= new Class03();
-		System.out.println("classdel호출");
-		
-		fxPwddelete = (PasswordField) root.lookup("#fxPwddelete");
-		String password1 = fxPwddelete.getText();
-/*
-		if(deleteSuccess) {
-			fxPwdcheck = (PasswordField)root.lookup("#fxPwdcheck");
-			System.out.println("pwd : "+fxPwdcheck.getText());
-
-			MemberDTO dto = new MemberDTO();
-			dto.setPwd(fxPwdcheck.getText());
-		}
-		dao.getMembers();
-		*/
-		if(result == true)
-			cs03.deleteFx(root, password1);
-		else
-			System.out.println("비밀번호가 다릅니다");
-
-		cs03.deleteFx(root, password1);
-	}
-
-	@Override
-	public void modifymFunc() {
-
-	}
-	@Override
-	public void cancelmFunc() {
+	public void cancelFunc() {
 		Stage stage =(Stage)root.getScene().getWindow();
 		stage.close();
 	}
 	@Override
-	public void checkdFunc() {
-
+	public void canclemFunc() {
+		Stage stage =(Stage)root.getScene().getWindow();
+		stage.close();
 	}
-	@Override
-	public void modifyFunc() {
-		// TODO Auto-generated method stub
-
-	}
-	@Override
-	public void modifyFunc(String id, String pwd, String name, String number, String addr) {
-		// TODO Auto-generated method stub
-
-	}
-	@Override
-	public void deleteFunc() {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-
+	
 }
 
 

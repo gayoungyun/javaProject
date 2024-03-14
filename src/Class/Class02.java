@@ -10,7 +10,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class Class02 {
-	public void modifyFx(Parent root) {
+	public void modifyFx(Parent root, String password) {
 		System.out.println("모실행");
 		Stage memberStage = (Stage)root.getScene().getWindow();
 		try {
@@ -21,10 +21,11 @@ public class Class02 {
 			System.out.println("로드 후 실행");
 			MemberController ctrl = loader.getController();
 			ctrl.setRoot(root);
-			
 			Scene scene = new Scene(root);
 			memberStage.setScene(scene);
 			memberStage.show();
+			
+			ctrl.setPwd(password);
 			
 			
 			
