@@ -11,7 +11,6 @@ import javafx.stage.Stage;
 
 public class Class02 {
 	public void modifyFx(Parent root, String password) {
-		System.out.println("모실행");
 		Stage memberStage = (Stage)root.getScene().getWindow();
 		try {
 			URL url = new URL("file:/" + (Paths.get("").toAbsolutePath().toString())+"/bin/modify.fxml");
@@ -26,8 +25,6 @@ public class Class02 {
 			memberStage.show();
 			
 			ctrl.setPwd(password);
-			
-			
 			
 		}catch (Exception e) {
 			e.printStackTrace();

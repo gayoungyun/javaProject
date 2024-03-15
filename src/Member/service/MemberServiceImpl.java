@@ -8,10 +8,12 @@ import Class.Class02;
 import Member.dao.MemberDAO;
 import Member.dto.MemberDTO;
 import javafx.scene.Parent;
+import javafx.scene.control.Alert;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 
 public class MemberServiceImpl implements MemberService{
@@ -24,6 +26,7 @@ public class MemberServiceImpl implements MemberService{
 	private MemberDTO dto;
 
 	Parent root;
+	private Object Stage;
 
 	public MemberServiceImpl() {
 		dao = new MemberDAO();
@@ -31,7 +34,7 @@ public class MemberServiceImpl implements MemberService{
 	public void setRoot(Parent root) {
 		this.root = root;
 	}
-	
+
 	@Override
 	public void registerFunc(String id, String name, String birth, String number, String pwd, boolean gender) {
 
@@ -65,19 +68,13 @@ public class MemberServiceImpl implements MemberService{
 
 		dao.insert(dto);
 	}
-	@Override
-	public void modifyFunc(Parent root , String password ) {
-		
-		System.out.println("modifyfund실행");
-		Class02 cs02= new Class02();
-		System.out.println("class호출");
-		
-		cs02.modifyFx(root, password);
-	}
-	
+
 	public void checkFunc(Parent root, boolean result, String password) {
 		ArrayList<MemberDTO> member = dao.getMembers();
 		Class01 cs01= new Class01();
+
+		MemberDAO dao = new MemberDAO();
+
 		if(member.size()== 1 || member != null) {
 			fxPwdcheck = (PasswordField)root.lookup("#fxPwdcheck");
 			System.out.println("pwd : "+fxPwdcheck.getText());
@@ -90,17 +87,31 @@ public class MemberServiceImpl implements MemberService{
 			cs01.viewFx(root, password);
 		else
 			System.out.println("비밀번호가 다릅니다");
+		
+		System.out.println(fxPwdcheck.getText());
+		//fxPwdcheck.getText() == fxPwdcheck.getText()
+		//if(fxPwdcheck.getText().equals(fxPwd.getText())) {
+		/*
+		if(!(fxPwdcheck.getText().equals(password))) {
+			Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setHeaderText("실패");
+			alert.setContentText("다시 입력해주세요");
+			alert.show();
+		}else {
+			//Alert alert = new Alert(AlertType.INFORMATION);
+			//alert.setHeaderText("");
+		//alert.show();
+		}
+*/
 	}
-	
-	@Override
+
 	public boolean isMemberRegistered(String phoneNumber) 
 	{
 		boolean result = dao.phoneNumberchk(phoneNumber);
-
 		return result;
-
 	}
 
+	//??
 	public boolean isMemberCheck(String pwd)
 	{
 		boolean result = dao.passwordchk(pwd);
@@ -110,21 +121,24 @@ public class MemberServiceImpl implements MemberService{
 	public boolean passwordchk(String pwd) 
 	{
 		return dao.passwordchk(pwd);
-
 	}
 
-	@Override
+	public void modifyFunc(Parent root , String password ) {
+		Class02 cs02= new Class02();
+		cs02.modifyFx(root, password);
+	}
+
 	public void cancelFunc() {
 		Stage stage =(Stage)root.getScene().getWindow();
 		stage.close();
 	}
-	@Override
 	public void canclemFunc() {
-		Stage stage =(Stage)root.getScene().getWindow();
-		stage.close();
+		Stage memberStage =(Stage)root.getScene().getWindow();
+		memberStage.close();
 	}
-	
 }
+
+
 
 
 

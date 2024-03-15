@@ -33,6 +33,7 @@ public class MemberController implements Initializable{
 	MemberDTO userInfo;
 	Parent root;
 	MemberService ms;
+	
 	public void setRoot(Parent root) {
 		ms.setRoot(root);
 		this.root = root;
@@ -43,9 +44,8 @@ public class MemberController implements Initializable{
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		ms = new MemberServiceImpl();
-
-
 	}
+	//회원가입
 	public void registerFunc() 
 	{
 		fxId = (TextField)root.lookup("#fxId");
@@ -60,52 +60,67 @@ public class MemberController implements Initializable{
 		if(ms.isMemberRegistered(phoneNumber)) {
 			String msg = fxNumber.getText();
 			fxNumber.setText(msg);
-
 			Alert alert = new Alert(AlertType.INFORMATION);
 			alert.setHeaderText("중복");
 			alert.setContentText("이미 가입하셨습니다");
 			alert.show();
-
 		}else {
 			Alert alert = new Alert(AlertType.INFORMATION);
 			alert.setHeaderText("");
 			alert.setContentText("가입 성공했습니다");
 			alert.show();
-
 		}
 		ms.registerFunc(fxId.getText(), fxName.getText(), fxBirth.getText(), fxNumber.getText(), fxPwd.getText(), rdoWoman.isSelected());
 	}
+	
+	//비밀번호 입력시 회원정보가져오기
+	public void setTable(MemberDTO dto, String password)
+	{
+		userInfo = dto;
+		userInfo.setPwd(password);
 
+		myList.add(new MemberDTO(dto.getId(), dto.getName(), dto.getBirth(), dto.getTel(), dto.getAdd()));
+
+		fxViewid.setCellValueFactory(new PropertyValueFactory<>("id"));
+		fxViewname.setCellValueFactory(new PropertyValueFactory<>("name"));
+		fxViewbirth.setCellValueFactory(new PropertyValueFactory<>("birth"));
+		fxViewtel.setCellValueFactory(new PropertyValueFactory<>("tel"));
+		fxViewaddress.setCellValueFactory(new PropertyValueFactory<>("add"));
+
+		fxView.setItems(myList);
+	}
+
+	public void find(String password)
+	{
+		MemberDTO dto = new MemberDTO();
+		MemberDAO dao = new MemberDAO();
+
+		dto = dao.findMember(password);
+
+		setTable(dto, password);
+	}
+
+	public void setPwd(String pwd)
+	{
+		MemberDTO d = new MemberDTO();
+		userInfo = d;
+		userInfo.setPwd(pwd);
+	}
+
+	//회원정보보기
 	public void checkFunc() {
 		fxPwdcheck = (PasswordField)root.lookup("#fxPwdcheck");
 		String password = fxPwdcheck.getText();
 
 		boolean result = false;
-		
 		if (ms.passwordchk(password)) {
 			result = true;
 		}
 		ms.checkFunc(root, result, password);
 	}
 
-	public void deleteFunc() {
-		MemberDAO dao = new MemberDAO();
-
-		boolean deletionSuccess = dao.delete(userInfo.getPwd()); 
-		if(!deletionSuccess) {
-
-			Alert alert = new Alert(AlertType.INFORMATION);
-			alert.setHeaderText("실패");
-			alert.setContentText("다시 시도해주세요");
-			alert.show();
-
-		}else {
-			Alert alert = new Alert(AlertType.INFORMATION);
-			alert.setHeaderText("");
-			alert.setContentText("탈퇴 성공했습니다");
-			alert.show();
-
-		}
+	public void modifyFunc() {
+		ms.modifyFunc(root, userInfo.getPwd());
 	}
 
 	public void modifymFunc() {
@@ -118,15 +133,15 @@ public class MemberController implements Initializable{
 
 		MemberDAO dao = new MemberDAO();
 		MemberDTO dto = new MemberDTO();
-		
+
 		dto.setId(fxIdm.getText());
 		dto.setPwd(fxPwdm.getText());
 		dto.setName(fxNamem.getText());
 		dto.setTel(fxNumberm.getText());
 		dto.setAdd(fxAddrm.getText());
-		
+
 		int modifySuccess = dao.modify(dto, userInfo.getPwd()); 
-		
+
 		if(modifySuccess>0) {
 			Alert alert = new Alert(AlertType.INFORMATION);
 			alert.setHeaderText("중복");
@@ -139,69 +154,30 @@ public class MemberController implements Initializable{
 			alert.show();
 		}
 	}
-	
-	public void canclemFunc() {
 
-	}
-
-
-	public void find(String password)
-	{
-		MemberDTO dto = new MemberDTO();
+	public void deleteFunc() {
 		MemberDAO dao = new MemberDAO();
+		boolean deletionSuccess = dao.delete(userInfo.getPwd()); 
 
-
-		dto = dao.findMember(password);
-
-		System.out.println(dto.getBirth());
-
-		setTable(dto, password);
+		if(!deletionSuccess) {
+			Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setHeaderText("실패");
+			alert.setContentText("다시 시도해주세요");
+			alert.show();
+		}else {
+			Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setHeaderText("");
+			alert.setContentText("탈퇴 성공했습니다");
+			alert.show();
+		}
 	}
 
-	public void setTable(MemberDTO dto, String password)
-	{
-		userInfo = dto;
-		userInfo.setPwd(password);
-		
-		myList.add(new MemberDTO(dto.getId(), dto.getName(), dto.getBirth(), dto.getTel(), dto.getAdd()));
-
-		fxViewid.setCellValueFactory(new PropertyValueFactory<>("id"));
-		fxViewname.setCellValueFactory(new PropertyValueFactory<>("name"));
-		fxViewbirth.setCellValueFactory(new PropertyValueFactory<>("birth"));
-		fxViewtel.setCellValueFactory(new PropertyValueFactory<>("tel"));
-		fxViewaddress.setCellValueFactory(new PropertyValueFactory<>("add"));
-
-		fxView.setItems(myList);
+	public void canclemFunc() {
+		ms.canclemFunc();
 	}
-	public void modifyFunc() {
-
-		ms.modifyFunc(root, userInfo.getPwd());
-	}
-
-
 	public void cancelFunc() {
-		System.out.println("root : "+root);
 		ms.cancelFunc();
 	}
-	public void cancelmFunc() {
-		System.out.println("root : "+root);
-		ms.cancelFunc();
-	}
-	public void canceldFunc() {
-		System.out.println("root : "+root);
-		ms.cancelFunc();
-	}
-	public void checkdFunc() {
-
-	}
-	
-	public void setPwd(String pwd)
-	{
-		MemberDTO d = new MemberDTO();
-		userInfo = d;
-		userInfo.setPwd(pwd);
-	}
-	
 }
 
 

@@ -24,8 +24,6 @@ public class MainClass extends Application {
 		MemberController ctrl = loader.getController();
 		ctrl.setRoot(root);
 
-		//MemberDTO dto = new MemberDTO();
-
 		Scene scene = new Scene(root);
 		arg0.setScene(scene);
 		arg0.show();

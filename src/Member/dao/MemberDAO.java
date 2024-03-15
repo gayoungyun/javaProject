@@ -52,13 +52,13 @@ public class MemberDAO {
 		}
 		return member; 
 	}
-
+	
+//회원가입
 	public int insert(MemberDTO dto) {
 		String sql = "insert into memberdatainfo values(memberinf_SEQ.nextval,?,?,?,?,?,?,?)";
 		int result = 0;
 		try {
 			ps = con.prepareStatement(sql);
-			//		ps.setInt(1, dto.getNum());
 			ps.setString(1, dto.getId());
 			ps.setString(2, dto.getPwd());
 			ps.setString(3, dto.getName());
@@ -66,31 +66,8 @@ public class MemberDAO {
 			ps.setString(5, dto.getTel());
 			ps.setInt(6, dto.getGender());
 			ps.setString(7, dto.getAdd());
-
 			System.out.println("test");
 			result = ps.executeUpdate();
-		}catch (Exception e) {
-			e.printStackTrace();
-		}
-		return result;
-	}
-	
-	public int modify(MemberDTO dto, String password) {
-		String sql = "update memberdatainfo set y_id=?, y_pwd=?, y_name=?, y_tel=?, y_add=? where y_pwd=?";
-		int result = 0;
-		try {
-			
-			ps = con.prepareStatement(sql);
-			ps.setString(1, dto.getId());
-			ps.setString(2, dto.getPwd());
-			ps.setString(3, dto.getName());
-			ps.setString(4, dto.getTel());
-			ps.setString(5, dto.getAdd());
-			ps.setString(6, password);
-			rs = ps.executeQuery();
-			
-			result = ps.executeUpdate();
-			System.out.println(result);
 
 		}catch (Exception e) {
 			e.printStackTrace();
@@ -98,57 +75,7 @@ public class MemberDAO {
 		return result;
 	}
 
-	public MemberDTO findMember(String pwd)
-	{
-		String sql = "select * from memberdatainfo where y_pwd=?";
-		MemberDTO dto = null;
-		try {
-			ps = con.prepareStatement(sql);
-			ps.setString(1, pwd);
-			rs= ps.executeQuery();
-			
-			if(rs.next())
-			{
-				dto = new MemberDTO();
-				dto.setId(rs.getString("y_id"));
-				dto.setPwd(rs.getString("y_pwd"));
-				dto.setName(rs.getString("y_name"));
-				dto.setBirth(rs.getString("y_brith"));
-				dto.setTel(rs.getString("y_tel"));
-				dto.setAdd(rs.getString("y_add"));
-					
-			}
-
-		}catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		return dto;
-	}
-	
-	public boolean delete(String delPwd) {
-		String sql = "delete from memberdatainfo where y_pwd=?";
-		//MemberDTO dto = null;
-		boolean success = false;
-		
-		try {
-			ps = con.prepareStatement(sql);
-			ps.setString(1, delPwd);
-			System.out.println(delPwd);
-			int deleteRows = ps.executeUpdate();
-			//System.out.println(deleteRows);
-			//rs = ps.executeQuery();
-		
-			if(deleteRows>0) {
-				//dto = new MemberDTO();
-				success = true;
-		}
-		}catch (Exception e) {
-			e.printStackTrace();
-		}
-		return success;
-	}
-
+//사용자 핸드폰 번호와 DB의 정보가 같다면 회원 가입 실패 처리
 	public boolean phoneNumberchk(String phone)
 	{
 		String sql = "select * from memberdatainfo where y_tel=?";
@@ -166,12 +93,10 @@ public class MemberDAO {
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
-
 		return false;
 	}
 	
-	
-	public boolean passwordchk(String pwd)
+	public MemberDTO findMember(String pwd)
 	{
 		String sql = "select * from memberdatainfo where y_pwd=?";
 		MemberDTO dto = null;
@@ -182,14 +107,79 @@ public class MemberDAO {
 
 			if(rs.next())
 			{
+				dto = new MemberDTO();
+				dto.setId(rs.getString("y_id"));
+				dto.setPwd(rs.getString("y_pwd"));
+				dto.setName(rs.getString("y_name"));
+				dto.setBirth(rs.getString("y_brith"));
+				dto.setTel(rs.getString("y_tel"));
+				dto.setAdd(rs.getString("y_add"));
+			}
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return dto;
+	}
+
+//회원정보보기
+	public boolean passwordchk(String pwd)
+	{
+		String sql = "select * from memberdatainfo where y_pwd=?";
+		MemberDTO dto = null;
+		try {
+			ps = con.prepareStatement(sql);
+			ps.setString(1, pwd);
+			rs= ps.executeQuery();
+			if(rs.next())
+			{
 				return true;
 			}
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+
+//회원수정
+	public int modify(MemberDTO dto, String password) {
+		String sql = "update memberdatainfo set y_id=?, y_pwd=?, y_name=?, y_tel=?, y_add=? where y_pwd=?";
+		int result = 0;
+		try {
+			ps = con.prepareStatement(sql);
+			ps.setString(1, dto.getId());
+			ps.setString(2, dto.getPwd());
+			ps.setString(3, dto.getName());
+			ps.setString(4, dto.getTel());
+			ps.setString(5, dto.getAdd());
+			ps.setString(6, password);
+			rs = ps.executeQuery();
+			result = ps.executeUpdate();
+			System.out.println(result);
 
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
-
-		return false;
+		return result;
 	}
-	
+
+//회원탈퇴
+	public boolean delete(String delPwd) {
+		String sql = "delete from memberdatainfo where y_pwd=?";
+		boolean success = false;
+		try {
+			ps = con.prepareStatement(sql);
+			ps.setString(1, delPwd);
+			System.out.println(delPwd);
+			int deleteRows = ps.executeUpdate();
+
+			if(deleteRows>0) {
+				success = true;
+			}
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return success;
+	}
 }
+
+

@@ -14,7 +14,7 @@ import register.url.URLService;
 
 public class Class01 {
 	public void viewFx(Parent root, String password) {
-		Stage memberStage = (Stage)root.getScene().getWindow();
+		Stage stage = (Stage)root.getScene().getWindow();
 		try {
 			URL url = new URL("file:/" + (Paths.get("").toAbsolutePath().toString())+"/bin/checkinfo.fxml");
 			FXMLLoader loader = new FXMLLoader(url);
@@ -24,8 +24,8 @@ public class Class01 {
 			MemberController ctrl = loader.getController();
 			ctrl.setRoot(root);
 			Scene scene = new Scene(root);
-			memberStage.setScene(scene);
-			memberStage.show();
+			stage.setScene(scene);
+			stage.show();
 			
 			ctrl.find(password);
 			

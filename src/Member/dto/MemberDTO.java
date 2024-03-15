@@ -1,7 +1,7 @@
 package Member.dto;
 
 public class MemberDTO {
-	private String id, pwd, name, birth, tel, add, newpwd;
+	private String id, pwd, name, birth, tel, add;
 	private int gender;
 	private int num;
 	
@@ -58,15 +58,6 @@ public class MemberDTO {
 	public void setAdd(String add) {
 		this.add = add;
 	}
-	
-	
-	public String getNewPwd() {
-		return newpwd;
-	}
-	public void setNewPwd(String newpwd) {
-		this.newpwd = newpwd;
-	}
-	
 	
 	public int getGender() {
 		return gender;
